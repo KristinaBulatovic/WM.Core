@@ -1,0 +1,47 @@
+[
+  {
+    "Id": 1,
+    "Name": "Kinder Chocolate",
+    "Description": "Milk chocolate with a smooth milky white filling",
+    "Category": 3,
+    "Manufacturer": "FERRERO DOOS",
+    "Supplier": "IDEA",
+    "Price": 149.99
+  },
+  {
+    "Id": 2,
+    "Name": "Apple",
+    "Description": "Apples are a sweet fleshy fruit that grow around the world",
+    "Category": 0,
+    "Manufacturer": "DELTA AGRAR DOO",
+    "Supplier": "MAXI",
+    "Price": 127.99
+  },
+  {
+    "Id": 3,
+    "Name": "Coca-Cola",
+    "Description": "Coca-Cola is a carbonated soft drink",
+    "Category": 4,
+    "Manufacturer": "COCA COLA HBC SERBIA DOO",
+    "Supplier": "IDEA",
+    "Price": 67.99
+  },
+  {
+    "Id": 4,
+    "Name": "Biscuit Jaffa",
+    "Description": "Biscuit with fruit jelly topped with chocolate",
+    "Category": 3,
+    "Manufacturer": "JAFFA DOO",
+    "Supplier": "MAXI",
+    "Price": 96.99
+  },
+  {
+    "Id": 5,
+    "Name": "Fanta",
+    "Description": "Refreshing soft drink with orange flavor",
+    "Category": 4,
+    "Manufacturer": "COCA COLA HBC SERBIA DOO",
+    "Supplier": "MAXI",
+    "Price": 54.99
+  }
+]

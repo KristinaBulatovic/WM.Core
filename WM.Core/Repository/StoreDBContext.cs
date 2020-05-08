@@ -22,31 +22,31 @@ namespace WM.Core.Repository
                 new Product
                 {
                     Id = 1,
-                    Name = "Banana",
-                    Description = "Store fresh at 7C",
-                    Category = Category.Fruits,
-                    Manufacturer = "PACIFIC FRUIT LTD DOO",
-                    Supplier = "Maxi",
-                    Price = 64.00
+                    Name = "Bounty chocolate bar",
+                    Description = "Bounty has a coconut filling enrobed with milk chocolate",
+                    Category = Category.Sweets,
+                    Manufacturer = "NELT CO. DOO",
+                    Supplier = "IDEA",
+                    Price = 69.99
                 },
                  new Product
                  {
                      Id = 2,
-                     Name = "Potato",
-                     Description = "White potatoes",
-                     Category = Category.Vegetables,
-                     Manufacturer = "FRUIT COMPANY DOO",
-                     Supplier = "Maxi",
-                     Price = 33.00
+                     Name = "Banana",
+                     Description = "A banana is an elongated, edible fruit – botanically a berry",
+                     Category = Category.Fruits,
+                     Manufacturer = "PACIFIC FRUIT LTD DOO",
+                     Supplier = "MAXI",
+                     Price = 119.99
                  },
                   new Product
                   {
                       Id = 3,
                       Name = "Nutella",
-                      Description = "Nutella cream 750g",
+                      Description = "Nutella is a chocolate and hazelnut spread",
                       Category = Category.Sweets,
                       Manufacturer = "DELTA DMD DOO",
-                      Supplier = "Maxi",
+                      Supplier = "MAXI",
                       Price = 689.99
                   }
             );

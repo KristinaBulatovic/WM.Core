@@ -17,5 +17,16 @@ namespace WM.Core.Controllers
             _productService = productService;
         }
 
+        [HttpGet("GetProductsFromDB")]
+        public IActionResult GetProductsFromDB()
+        {
+            return new OkObjectResult(_productService.GetProductsFromDB());
+        }
+
+        [HttpGet("GetProductsFromJSON")]
+        public IActionResult GetProductsFromJSON()
+        {
+            return new OkObjectResult(_productService.GetProductsFromJSON());
+        }
     }
 }
