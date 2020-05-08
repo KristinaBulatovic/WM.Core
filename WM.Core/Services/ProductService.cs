@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using WM.Core.Entities;
 using WM.Core.Models;
 using WM.Core.Repository;
 
@@ -14,6 +15,7 @@ namespace WM.Core.Services
     {
         public List<ProductModel> GetProductsFromDB();
         public List<ProductModel> GetProductsFromJSON();
+        public string AddProduct(ProductModel product);
     }
     public class ProductService : IProductService
     {
@@ -43,6 +45,13 @@ namespace WM.Core.Services
                 r.Close();
             }
             return products;
+        }
+
+        public string AddProduct(ProductModel product)
+        {
+            var entity = _mapper.Map<Product>(product);
+            var result = _productRepository.AddProduct(entity);
+            return result;
         }
     }
 }

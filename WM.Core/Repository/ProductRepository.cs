@@ -9,6 +9,7 @@ namespace WM.Core.Repository
     public interface IProductRepository
     {
         public IEnumerable<Product> GetProducts();
+        public string AddProduct(Product product);
     }
     public class ProductRepository : IProductRepository
     {
@@ -21,6 +22,13 @@ namespace WM.Core.Repository
         public IEnumerable<Product> GetProducts()
         {
             return _storeDBContext.Products;
+        }
+
+        public string AddProduct(Product product)
+        {
+            _storeDBContext.Add(product);
+            _storeDBContext.SaveChanges();
+            return "Ok";
         }
 
     }

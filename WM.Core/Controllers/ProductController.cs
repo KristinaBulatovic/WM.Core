@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WM.Core.Models;
 using WM.Core.Services;
+using WM.Core.ViewModels;
 
 namespace WM.Core.Controllers
 {
@@ -11,10 +14,12 @@ namespace WM.Core.Controllers
     public class ProductController: Controller
     {
         private readonly IProductService _productService;
+        private readonly IMapper _mapper;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, IMapper mapper)
         {
             _productService = productService;
+            _mapper = mapper;
         }
 
         [HttpGet("GetProductsFromDB")]
@@ -27,6 +32,17 @@ namespace WM.Core.Controllers
         public IActionResult GetProductsFromJSON()
         {
             return new OkObjectResult(_productService.GetProductsFromJSON());
+        }
+
+        [HttpPost("AddProduct")]
+        public IActionResult AddProduct([FromBody]ProductViewModel product)
+        {
+            if (product == null)
+            {
+                return new NoContentResult();
+            }
+            var model = _mapper.Map<ProductModel>(product);
+            return new OkObjectResult(_productService.AddProduct(model));
         }
     }
 }
