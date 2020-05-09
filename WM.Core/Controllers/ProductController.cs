@@ -62,6 +62,12 @@ namespace WM.Core.Controllers
             return new OkObjectResult(_productService.GetProductForId(productId));
         }
 
+        [HttpGet("GetProductForIdFromJSON")]
+        public IActionResult GetProductForIdFromJSON([FromQuery]int productId)
+        {
+            return new OkObjectResult(_productService.GetProductForIdFromJSON(productId));
+        }
+
         [HttpPost("EditProduct")]
         public IActionResult EditProduct([FromBody]ProductViewModel product)
         {
@@ -71,6 +77,17 @@ namespace WM.Core.Controllers
             }
             var model = _mapper.Map<ProductModel>(product);
             return new OkObjectResult(_productService.EditProduct(model));
+        }
+
+        [HttpPost("EditProductToJSON")]
+        public IActionResult EditProductToJSON([FromBody]ProductViewModel product)
+        {
+            if (product == null)
+            {
+                return new NoContentResult();
+            }
+            var model = _mapper.Map<ProductModel>(product);
+            return new OkObjectResult(_productService.EditProductToJSON(model));
         }
 
         [HttpDelete("DeleteProduct")]
