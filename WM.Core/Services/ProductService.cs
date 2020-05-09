@@ -18,6 +18,7 @@ namespace WM.Core.Services
         public string AddProduct(ProductModel product);
         public ProductModel GetProductForId(int productId);
         public string EditProduct(ProductModel product);
+        public string DeleteProduct(int productId);
     }
     public class ProductService : IProductService
     {
@@ -67,6 +68,12 @@ namespace WM.Core.Services
         {
             var entity = _mapper.Map<Product>(product);
             var result = _productRepository.EditProduct(entity);
+            return result;
+        }
+
+        public string DeleteProduct(int productId)
+        {
+            var result = _productRepository.DeleteProduct(productId);
             return result;
         }
     }

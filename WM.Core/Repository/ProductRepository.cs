@@ -11,6 +11,7 @@ namespace WM.Core.Repository
         public IEnumerable<Product> GetProducts();
         public string AddProduct(Product product);
         public string EditProduct(Product product);
+        public string DeleteProduct(int productId);
     }
     public class ProductRepository : IProductRepository
     {
@@ -35,6 +36,14 @@ namespace WM.Core.Repository
         public string EditProduct(Product product)
         {
             _storeDBContext.Update(product);
+            _storeDBContext.SaveChanges();
+            return "Ok";
+        }
+
+        public string DeleteProduct(int productId)
+        {
+            Product product = _storeDBContext.Products.Where(x => x.Id == productId).FirstOrDefault();
+            _storeDBContext.Remove(product);
             _storeDBContext.SaveChanges();
             return "Ok";
         }

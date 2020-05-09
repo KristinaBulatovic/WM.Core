@@ -61,5 +61,11 @@ namespace WM.Core.Controllers
             var model = _mapper.Map<ProductModel>(product);
             return new OkObjectResult(_productService.EditProduct(model));
         }
+
+        [HttpDelete("DeleteProduct")]
+        public IActionResult DeleteProduct([FromQuery]int productId)
+        {
+            return new OkObjectResult(_productService.DeleteProduct(productId));
+        }
     }
 }
