@@ -79,21 +79,27 @@ namespace WM.Core.Controllers
             return new OkObjectResult(_productService.EditProduct(model));
         }
 
-        [HttpPost("EditProductToJSON")]
-        public IActionResult EditProductToJSON([FromBody]ProductViewModel product)
+        [HttpPost("EditProductFromJSON")]
+        public IActionResult EditProductFromJSON([FromBody]ProductViewModel product)
         {
             if (product == null)
             {
                 return new NoContentResult();
             }
             var model = _mapper.Map<ProductModel>(product);
-            return new OkObjectResult(_productService.EditProductToJSON(model));
+            return new OkObjectResult(_productService.EditProductFromJSON(model));
         }
 
         [HttpDelete("DeleteProduct")]
         public IActionResult DeleteProduct([FromQuery]int productId)
         {
             return new OkObjectResult(_productService.DeleteProduct(productId));
+        }
+
+        [HttpDelete("DeleteProductFromJSON")]
+        public IActionResult DeleteProductFromJSON([FromQuery]int productId)
+        {
+            return new OkObjectResult(_productService.DeleteProductFromJSON(productId));
         }
     }
 }

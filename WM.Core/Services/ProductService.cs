@@ -20,8 +20,9 @@ namespace WM.Core.Services
         public ProductModel GetProductForId(int productId);
         public ProductModel GetProductForIdFromJSON(int productId);
         public string EditProduct(ProductModel product);
-        public string EditProductToJSON(ProductModel product);
+        public string EditProductFromJSON(ProductModel product);
         public string DeleteProduct(int productId);
+        public string DeleteProductFromJSON(int productId);
     }
     public class ProductService : IProductService
     {
@@ -81,13 +82,12 @@ namespace WM.Core.Services
             var result = _productRepository.EditProduct(entity);
             return result;
         }
-        public string EditProductToJSON(ProductModel product)
+        public string EditProductFromJSON(ProductModel product)
         {
             var products = ReadingFromJson();
             ProductModel oldProduct = products.Where(x => x.Id == product.Id).FirstOrDefault();
             products.Remove(oldProduct);
             products.Add(product);
-
             return WritingInJson(products);
         }
 
@@ -95,6 +95,14 @@ namespace WM.Core.Services
         {
             var result = _productRepository.DeleteProduct(productId);
             return result;
+        }
+
+        public string DeleteProductFromJSON(int productId)
+        {
+            var products = ReadingFromJson();
+            ProductModel product = products.Where(x => x.Id == productId).FirstOrDefault();
+            products.Remove(product);
+            return WritingInJson(products);
         }
 
         private List<ProductModel> ReadingFromJson()
