@@ -16,6 +16,8 @@ namespace WM.Core.Services
         public List<ProductModel> GetProductsFromDB();
         public List<ProductModel> GetProductsFromJSON();
         public string AddProduct(ProductModel product);
+        public ProductModel GetProductForId(int productId);
+        public string EditProduct(ProductModel product);
     }
     public class ProductService : IProductService
     {
@@ -51,6 +53,20 @@ namespace WM.Core.Services
         {
             var entity = _mapper.Map<Product>(product);
             var result = _productRepository.AddProduct(entity);
+            return result;
+        }
+
+        public ProductModel GetProductForId(int productId)
+        {
+            var result = _productRepository.GetProducts().Where(x => x.Id == productId).FirstOrDefault();
+            ProductModel product = _mapper.Map<ProductModel>(result);
+            return product;
+        }
+
+        public string EditProduct(ProductModel product)
+        {
+            var entity = _mapper.Map<Product>(product);
+            var result = _productRepository.EditProduct(entity);
             return result;
         }
     }
