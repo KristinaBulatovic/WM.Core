@@ -16,6 +16,7 @@ namespace WM.Core.Services
         public List<ProductModel> GetProductsFromDB();
         public List<ProductModel> GetProductsFromJSON();
         public string AddProduct(ProductModel product);
+        public string AddProductToJSON(ProductModel product);
         public ProductModel GetProductForId(int productId);
         public string EditProduct(ProductModel product);
         public string DeleteProduct(int productId);
@@ -40,13 +41,7 @@ namespace WM.Core.Services
 
         public List<ProductModel> GetProductsFromJSON()
         {
-            List<ProductModel> products = new List<ProductModel>();
-            using (StreamReader r = new StreamReader(@"Store.json"))
-            {
-                string json = r.ReadToEnd();
-                products = JsonConvert.DeserializeObject<List<ProductModel>>(json);
-                r.Close();
-            }
+            var products = ReadingFromJson();
             return products;
         }
 
@@ -55,6 +50,13 @@ namespace WM.Core.Services
             var entity = _mapper.Map<Product>(product);
             var result = _productRepository.AddProduct(entity);
             return result;
+        }
+
+        public string AddProductToJSON(ProductModel product)
+        {
+            var products = ReadingFromJson();
+            products.Add(product);
+            return WritingInJson(products);
         }
 
         public ProductModel GetProductForId(int productId)
@@ -75,6 +77,25 @@ namespace WM.Core.Services
         {
             var result = _productRepository.DeleteProduct(productId);
             return result;
+        }
+
+        private List<ProductModel> ReadingFromJson()
+        {
+            List<ProductModel> products = new List<ProductModel>();
+            using (StreamReader r = new StreamReader(@"Store.json"))
+            {
+                string json = r.ReadToEnd();
+                products = JsonConvert.DeserializeObject<List<ProductModel>>(json);
+                r.Close();
+            }
+            return products;
+        }
+
+        private string WritingInJson(List<ProductModel> products)
+        {
+            string josnProducts = JsonConvert.SerializeObject(products, Formatting.Indented);
+            File.WriteAllText(@"Store.json", josnProducts);
+            return "Ok";
         }
     }
 }
