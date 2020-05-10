@@ -15,14 +15,14 @@ namespace WM.Core.Services
     {
         public List<ProductModel> GetProductsFromDB();
         public List<ProductModel> GetProductsFromJSON();
-        public string AddProduct(ProductModel product);
-        public string AddProductToJSON(ProductModel product);
+        public int AddProduct(ProductModel product);
+        public int AddProductToJSON(ProductModel product);
         public ProductModel GetProductForId(int productId);
         public ProductModel GetProductForIdFromJSON(int productId);
-        public string EditProduct(ProductModel product);
-        public string EditProductFromJSON(ProductModel product);
-        public string DeleteProduct(int productId);
-        public string DeleteProductFromJSON(int productId);
+        public int EditProduct(ProductModel product);
+        public int EditProductFromJSON(ProductModel product);
+        public int DeleteProduct(int productId);
+        public int DeleteProductFromJSON(int productId);
     }
     public class ProductService : IProductService
     {
@@ -48,14 +48,14 @@ namespace WM.Core.Services
             return products;
         }
 
-        public string AddProduct(ProductModel product)
+        public int AddProduct(ProductModel product)
         {
             var entity = _mapper.Map<Product>(product);
             var result = _productRepository.AddProduct(entity);
             return result;
         }
 
-        public string AddProductToJSON(ProductModel product)
+        public int AddProductToJSON(ProductModel product)
         {
             var products = ReadingFromJson();
             product.Id = products.Select(x => x.Id).LastOrDefault() + 1;
@@ -76,13 +76,13 @@ namespace WM.Core.Services
             return product;
         }
 
-        public string EditProduct(ProductModel product)
+        public int EditProduct(ProductModel product)
         {
             var entity = _mapper.Map<Product>(product);
             var result = _productRepository.EditProduct(entity);
             return result;
         }
-        public string EditProductFromJSON(ProductModel product)
+        public int EditProductFromJSON(ProductModel product)
         {
             var products = ReadingFromJson();
             ProductModel newProduct = products.Where(x => x.Id == product.Id).FirstOrDefault();
@@ -95,13 +95,13 @@ namespace WM.Core.Services
             return WritingInJson(products);
         }
 
-        public string DeleteProduct(int productId)
+        public int DeleteProduct(int productId)
         {
             var result = _productRepository.DeleteProduct(productId);
             return result;
         }
 
-        public string DeleteProductFromJSON(int productId)
+        public int DeleteProductFromJSON(int productId)
         {
             var products = ReadingFromJson();
             ProductModel product = products.Where(x => x.Id == productId).FirstOrDefault();
@@ -121,11 +121,19 @@ namespace WM.Core.Services
             return products;
         }
 
-        private string WritingInJson(List<ProductModel> products)
+        private int WritingInJson(List<ProductModel> products)
         {
             string josnProducts = JsonConvert.SerializeObject(products, Formatting.Indented);
-            File.WriteAllText(@"Store.json", josnProducts);
-            return "Ok";
+            try
+            {
+                File.WriteAllText(@"Store.json", josnProducts);
+                return 1;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return 0;
+            }
         }
     }
 }

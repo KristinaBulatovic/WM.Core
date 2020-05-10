@@ -9,9 +9,9 @@ namespace WM.Core.Repository
     public interface IProductRepository
     {
         public IEnumerable<Product> GetProducts();
-        public string AddProduct(Product product);
-        public string EditProduct(Product product);
-        public string DeleteProduct(int productId);
+        public int AddProduct(Product product);
+        public int EditProduct(Product product);
+        public int DeleteProduct(int productId);
     }
     public class ProductRepository : IProductRepository
     {
@@ -26,26 +26,23 @@ namespace WM.Core.Repository
             return _storeDBContext.Products;
         }
 
-        public string AddProduct(Product product)
+        public int AddProduct(Product product)
         {
             _storeDBContext.Add(product);
-            _storeDBContext.SaveChanges();
-            return "Ok";
+            return _storeDBContext.SaveChanges();
         }
 
-        public string EditProduct(Product product)
+        public int EditProduct(Product product)
         {
             _storeDBContext.Update(product);
-            _storeDBContext.SaveChanges();
-            return "Ok";
+            return _storeDBContext.SaveChanges();
         }
 
-        public string DeleteProduct(int productId)
+        public int DeleteProduct(int productId)
         {
             Product product = _storeDBContext.Products.Where(x => x.Id == productId).FirstOrDefault();
             _storeDBContext.Remove(product);
-            _storeDBContext.SaveChanges();
-            return "Ok";
+            return _storeDBContext.SaveChanges();
         }
 
     }
