@@ -24,7 +24,8 @@ namespace WM.Core.Entities
         Vegetables = 1,
         Meat = 2,
         Sweets = 3,
-        Drink = 4
+        Drink = 4,
+        Other = 5
 
     }
 }
