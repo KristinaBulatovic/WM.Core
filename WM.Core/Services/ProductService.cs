@@ -58,7 +58,7 @@ namespace WM.Core.Services
         public string AddProductToJSON(ProductModel product)
         {
             var products = ReadingFromJson();
-            product.Id = products.Count() + 1;
+            product.Id = products.Select(x => x.Id).LastOrDefault() + 1;
             products.Add(product);
             return WritingInJson(products);
         }
@@ -85,9 +85,13 @@ namespace WM.Core.Services
         public string EditProductFromJSON(ProductModel product)
         {
             var products = ReadingFromJson();
-            ProductModel oldProduct = products.Where(x => x.Id == product.Id).FirstOrDefault();
-            products.Remove(oldProduct);
-            products.Add(product);
+            ProductModel newProduct = products.Where(x => x.Id == product.Id).FirstOrDefault();
+            newProduct.Name = product.Name;
+            newProduct.Description = product.Description;
+            newProduct.Category = product.Category;
+            newProduct.Manufacturer = product.Manufacturer;
+            newProduct.Supplier = product.Supplier;
+            newProduct.Price = product.Price;
             return WritingInJson(products);
         }
 
